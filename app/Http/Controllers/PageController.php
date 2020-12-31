@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tag;
+use App\Models\Page;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TagController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,31 +17,19 @@ class TagController extends Controller
     public function index()
     {
         DB::connection()->enableQueryLog();
-
-        $tag = Tag::with('products')
-            ->where('name', 'aa')
-            ->get();
-
-        return response()->json(['success' => $tag, 'DB' => DB::getQueryLog()], 200);
-
-
+        $Page = Page::with('comments')->findOrFail(1);
+        $comments = $Page->comments;
+        return response()->json(['success' => $comments, 'DB' => DB::getQueryLog()], 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-
-        DB::connection()->enableQueryLog();
-        $tag = Tag::with('products', 'pages')->findOrFail(1);
-        $products = $tag->products;
-        $pages = $tag->pages;
-        return response()->json(['tag'=>$tag,'DB' => DB::getQueryLog()], 200);
-
-
+        //
     }
 
     /**
@@ -57,10 +46,10 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function show(tag $tag)
+    public function show(Page $page)
     {
         //
     }
@@ -68,10 +57,10 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(tag $tag)
+    public function edit(Page $page)
     {
         //
     }
@@ -80,10 +69,10 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tag $tag)
+    public function update(Request $request, Page $page)
     {
         //
     }
@@ -91,10 +80,10 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tag $tag)
+    public function destroy(Page $page)
     {
         //
     }

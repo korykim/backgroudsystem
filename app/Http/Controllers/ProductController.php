@@ -22,9 +22,10 @@ class ProductController extends Controller
         DB::connection()->enableQueryLog();
 
         $product = product::with("tags")
-            ->where('id', 27)
+            ->where('id', 1)
             ->get();
         //$tags = $product->tags;
+
 
         return response()->json(['success' => $product, 'DB' => DB::getQueryLog()], 200);
 
@@ -83,10 +84,14 @@ class ProductController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $tagx
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
+        DB::connection()->enableQueryLog();
+        $Product = Product::with('comments')->findOrFail(1);
+        $comments = $Product->comments;
+        return response()->json(['success' => $Product, 'DB' => DB::getQueryLog()], 200);
 
     }
 
@@ -94,11 +99,17 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Product $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Product $product)
     {
-        //
+        DB::connection()->enableQueryLog();
+
+        //一对一的多态关联
+        $product = Product::findOrFail(1);
+        $image = $product->image;
+
+        return response()->json(['success' => $image, 'DB' => DB::getQueryLog()], 200);
     }
 
     /**

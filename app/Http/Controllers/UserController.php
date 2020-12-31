@@ -24,7 +24,7 @@ class UserController extends Controller
 
         DB::connection()->enableQueryLog();
 
-        $user = User::findOrFail(1);
+        //$user = User::findOrFail(1);
 
 //        $user->removeRole('Admin'); //删除角色
 //        $user->assignRole("User"); //赋予角色
@@ -40,8 +40,8 @@ class UserController extends Controller
 //        $p= Permission::where('name', '=', 1)->first(); //搜索Permission[role-list role-create]
 //        $r->givePermissionTo($p);
 
-        $permissions = $user->permissions;
-        $roles = $user->roles;
+        //$permissions = $user->permissions;
+        //$roles = $user->roles;
 
         //$permissions = Permission::pluck('id','id')->all();
 
@@ -52,12 +52,12 @@ class UserController extends Controller
         //$role->syncPermissions(['role-edit','role-list','role-delete']); //同步权限
 
 
-        $success = User::with('profile', 'addresses')
+        $success = User::with('profile', 'addresses','products') //,'permissions','roles'
             //->findOrFail(1)
             ->where('id', 1) //获取userID=1的数据，如果没有这个条件就获取全部数据
             ->get();
 
-        return response()->json(['success' => $success, 'roles' => $roles, 'permissions' => $permissions, 'DB' => DB::getQueryLog()], 200);
+        return response()->json(['success' => $success,  'DB' => DB::getQueryLog()], 200);
     }
 
     /**

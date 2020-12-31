@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tag;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TagController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,30 +17,21 @@ class TagController extends Controller
     {
         DB::connection()->enableQueryLog();
 
-        $tag = Tag::with('products')
-            ->where('name', 'aa')
-            ->get();
+        $country = Country::findOrFail(1);
+        $success = $country->products;
 
-        return response()->json(['success' => $tag, 'DB' => DB::getQueryLog()], 200);
-
+        return response()->json(['country'=>$country,'DB' => DB::getQueryLog()], 200);
 
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-
-        DB::connection()->enableQueryLog();
-        $tag = Tag::with('products', 'pages')->findOrFail(1);
-        $products = $tag->products;
-        $pages = $tag->pages;
-        return response()->json(['tag'=>$tag,'DB' => DB::getQueryLog()], 200);
-
-
+        //
     }
 
     /**
@@ -57,10 +48,10 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show(tag $tag)
+    public function show(Country $country)
     {
         //
     }
@@ -68,10 +59,10 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function edit(tag $tag)
+    public function edit(Country $country)
     {
         //
     }
@@ -80,10 +71,10 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tag $tag)
+    public function update(Request $request, Country $country)
     {
         //
     }
@@ -91,10 +82,10 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tag $tag)
+    public function destroy(Country $country)
     {
         //
     }

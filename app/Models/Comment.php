@@ -5,27 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'content', 'user_id'
     ];
 
-//    public function Products()
-//    {
-//        return $this->belongsToMany(Product::class, 'product_tags');
-//    }
+    // 要触发更新的父级关联关系
+//    protected $touches = [
+//        'commentable'
+//    ];
+
+    //protected $guarded = [];
 
     public function Products()
     {
         return $this->morphedByMany(Product::class, 'taggable');
     }
-
-    public function pages()
-    {
-        return $this->morphedByMany(Page::class, 'taggable');
-    }
-
 }

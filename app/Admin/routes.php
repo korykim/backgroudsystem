@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -31,8 +33,17 @@ Route::get('/address/add',[AddressController::class,'store']);
 
 Route::any('/product/index',[ProductController::class,'index']);
 Route::any('/product/create',[ProductController::class,'create']);
+Route::any('/product/show',[ProductController::class,'show']);
+Route::any('/product/store',[ProductController::class,'store']);
+
 
 Route::any('/tag/index',[TagController::class,'index']);
+Route::any('/tag/create',[TagController::class,'create']);
+
+
+Route::any('/country/index',[CountryController::class,'index']);
+
+Route::any('/page/index',[PageController::class,'index']);
 
 
 Route::group([

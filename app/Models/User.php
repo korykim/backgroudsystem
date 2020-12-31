@@ -83,4 +83,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(address::class);
     }
+
+    public function products()
+    {
+        return $this->hasMany(product::class);
+    }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
